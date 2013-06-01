@@ -41,8 +41,8 @@
 //---------------- data types ----------------//
 // execution state
 typedef struct {
-    bool            bypass;
     midi_state_t    midi;
+    bool            receive;
 } exec_state_t;
 
 

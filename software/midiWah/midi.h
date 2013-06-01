@@ -45,7 +45,9 @@
 #define     MIDI_NOTE_ON        0x90
 
 // MIDI data byte 0 for NOTE ON commands
-#define     CMD_TAP_TEMPO       0x02
+#define     CMD_PEDAL_MODE      0x00
+#define     CMD_MODULATION_MODE 0x01
+#define     CMD_TAP_TEMPO       0x08
 
 // MIDI data byte 0 for CONTROL CHANGE commands
 #define     CTRL_WAH            0x0b

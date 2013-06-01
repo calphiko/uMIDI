@@ -71,10 +71,30 @@ ISR(USART_RX_vect)
                 state.midi = PROGRAM_CHANGE;
             break;
 
+        case NOTE_ON:
+            switch(data) {
+                case CMD_PEDAL_MODE:
+                    state.receive = true;
+                    break;
+
+                case CMD_MODULATION_MODE:
+                    state.receive = false;
+                    break;
+            }
+            state.midi = IDLE;
+            break;
+
+        case PROGRAM_CHANGE:
+            state.midi = IDLE;
+            break;
+
         case CONTROL_CHANGE:
             switch(data) {
                 case CTRL_WAH:
-                    state.midi = SET_WAH;
+                    if (state.receive)
+                        state.midi = SET_WAH;
+                    else
+                        state.midi = IDLE;
                     break;
 
                 default:
@@ -84,6 +104,7 @@ ISR(USART_RX_vect)
 
         case SET_WAH:
             applyWah(data);
+            state.midi = IDLE;
             break;
 
         default:
