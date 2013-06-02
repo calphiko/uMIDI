@@ -60,7 +60,8 @@ int main( void )
 {
     // configure ports and USART
     configureUSART();
-    configureWahTimer();
+    configureWahLedTimer();
+    configureWahModulationTimer();
 
     // set watchdog for 30ms
     wdt_enable(WDTO_30MS);

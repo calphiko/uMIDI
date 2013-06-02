@@ -43,7 +43,7 @@
 
 
 //---------------- data types ----------------//
-// tremolo waveforms
+// wah modulation waveforms
 typedef enum {
 	WAVE_OFF,
 	WAVE_SINE,
@@ -56,7 +56,9 @@ typedef enum {
 
 //---------------- functions and procedures ----------------//
 void applyWah( uint8_t );
-void configureWahTimer( void );
+void configureWahLedTimer( void );
+void configureWahModulationTimer( void );
+void modulateSaw( void );
 
 
 //---------------- EOF ----------------//

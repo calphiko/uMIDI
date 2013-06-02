@@ -75,10 +75,12 @@ ISR(USART_RX_vect)
             switch(data) {
                 case CMD_PEDAL_MODE:
                     state.receive = true;
+                    state.waveform = WAVE_OFF;
                     break;
 
                 case CMD_MODULATION_MODE:
                     state.receive = false;
+                    state.waveform = WAVE_SAW_UP;
                     break;
             }
             state.midi = IDLE;

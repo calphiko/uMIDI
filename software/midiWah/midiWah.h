@@ -42,6 +42,7 @@
 // execution state
 typedef struct {
     midi_state_t    midi;
+    wave_t          waveform;
     bool            receive;
 } exec_state_t;
 

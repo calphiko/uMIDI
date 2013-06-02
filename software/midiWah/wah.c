@@ -24,6 +24,7 @@
 
 #include "midiWah.h"
 
+#include <util/atomic.h>
 
 
 ////////////////////////////////////////////////////////////////
@@ -45,8 +46,7 @@ void applyWah( uint8_t wah )
 }
 
 
-void configureWahTimer( void )
-{
+void configureWahLedTimer( void ) {
     // configure AVR ports
     WAH_LED_DDR = _BV(WAH_LED_BIT);
 
@@ -59,6 +59,19 @@ void configureWahTimer( void )
     OCR1A = WAH_LED_SCALER * MIDI_MAX_VALUE;
 }
 
+void configureWahModulationTimer( void ) {
+    // 8bit / 4 kHz
+    TCCR0A = _BV(CS00);
+    TIMSK0 |= _BV(TOIE0);
+}
+
+void modulateSaw() {
+    int value = 0;
+    value++;
+    value %= 128;
+    applyWah(value);
+}
+
 
 
 ////////////////////////////////////////////////////////////////
@@ -66,4 +79,18 @@ void configureWahTimer( void )
 ////////////////////////////////////////////////////////////////
 
 ISR(TIMER0_OVF_vect) {
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        static uint8_t prescaler = 0;
+        if (++prescaler > 8) {
+            switch (state.waveform) {
+                case WAVE_SAW_UP:
+                    modulateSaw();
+                    break;
+
+                default:
+                    break;
+            }
+            prescaler = 0;
+        }
+    }
 }
