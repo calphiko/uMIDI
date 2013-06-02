@@ -43,6 +43,11 @@
 
 
 //---------------- data types ----------------//
+typedef enum {
+    DIRECTION_UP,
+    DIRECTION_DOWN
+} direction_t;
+
 // wah modulation waveforms
 typedef enum {
 	WAVE_OFF,

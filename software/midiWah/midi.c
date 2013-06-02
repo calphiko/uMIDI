@@ -87,6 +87,11 @@ ISR(USART_RX_vect)
                     state.receive = false;
                     state.waveform = WAVE_SAW_DOWN;
                     break;
+
+                case CMD_AUTO_MODE_TRIANGLE:
+                    state.receive = false;
+                    state.waveform = WAVE_TRIANGLE;
+                    break;
             }
             state.midi = IDLE;
             break;
@@ -103,6 +108,7 @@ ISR(USART_RX_vect)
                     else
                         state.midi = IDLE;
                     break;
+
 
 
                 default:

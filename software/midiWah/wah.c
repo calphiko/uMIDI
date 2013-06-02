@@ -72,7 +72,8 @@ void configureWahModulationTimer( void ) {
 ISR(TIMER0_OVF_vect) {
     static uint8_t prescaler = 0;
     static uint8_t wah = 0;
-    if (++prescaler > 8) {
+    static direction_t direction = DIRECTION_UP;
+    if (++prescaler > 16) {
         switch (state.waveform) {
             case WAVE_SAW_DOWN:
                 // increment, rotate and apply wah value
@@ -85,6 +86,24 @@ ISR(TIMER0_OVF_vect) {
                 // increment, rotate and apply wah value
                 wah++;
                 wah %= MIDI_MAX_VALUE + 1;
+                applyWah(wah);
+                break;
+
+            case WAVE_TRIANGLE:
+                switch (direction) {
+                    case DIRECTION_DOWN:
+                        if (--wah <= 0)
+                            direction = DIRECTION_UP;
+                        break;
+
+                    case DIRECTION_UP:
+                        if (++wah >= MIDI_MAX_VALUE)
+                            direction = DIRECTION_DOWN;
+                        break;
+
+                    default:
+                        break;
+                }
                 applyWah(wah);
                 break;
 
