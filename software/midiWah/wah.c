@@ -73,7 +73,7 @@ ISR(TIMER0_OVF_vect) {
     static uint8_t prescaler = 0;
     static uint8_t wah = 0;
     static direction_t direction = DIRECTION_UP;
-    if (++prescaler > 16) {
+    if (++prescaler > state.speed) {
         switch (state.waveform) {
             case WAVE_SAW_DOWN:
                 // increment, rotate and apply wah value

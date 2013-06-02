@@ -44,6 +44,7 @@ typedef struct {
     midi_state_t    midi;
     wave_t          waveform;
     bool            receive;
+    uint8_t         speed;
 } exec_state_t;
 
 

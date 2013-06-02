@@ -53,6 +53,7 @@
 
 // MIDI data byte 0 for CONTROL CHANGE commands
 #define     CTRL_WAH                    0x0b
+#define     CTRL_SPEED                  0x07
 
 
 //---------------- data types ----------------//
@@ -62,7 +63,8 @@ typedef enum {
     NOTE_ON,
     CONTROL_CHANGE,
     PROGRAM_CHANGE,
-    SET_WAH
+    SET_WAH,
+    SET_SPEED
 } midi_state_t;
 
 

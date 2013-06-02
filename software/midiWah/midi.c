@@ -108,8 +108,9 @@ ISR(USART_RX_vect)
                     else
                         state.midi = IDLE;
                     break;
-
-
+                case CTRL_SPEED:
+                    state.midi = SET_SPEED;
+                    break;
 
                 default:
                     state.midi = IDLE;
@@ -118,6 +119,12 @@ ISR(USART_RX_vect)
 
         case SET_WAH:
             applyWah(data);
+            state.midi = IDLE;
+            break;
+
+        case SET_SPEED:
+            // scale and set speed value
+            state.speed = (MIDI_MAX_VALUE - data) / 4;
             state.midi = IDLE;
             break;
 
