@@ -48,6 +48,7 @@
 #define     CMD_PEDAL_MODE              0x00
 #define     CMD_AUTO_MODE_SAW_UP        0x01
 #define     CMD_AUTO_MODE_SAW_DOWN      0x02
+#define     CMD_AUTO_MODE_SQUARE        0x04
 #define     CMD_AUTO_MODE_TRIANGLE      0x03
 #define     CMD_TAP_TEMPO               0x10
 
