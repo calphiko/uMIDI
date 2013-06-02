@@ -47,6 +47,8 @@
 // main state variable struct
 exec_state_t    state = {
     IDLE,
+    WAVE_OFF,
+    8,
     true
 };
 
