@@ -62,6 +62,9 @@ ISR(USART_RX_vect)
     uint8_t data = UDR0;
 
     switch (state.midi) {
+        ////
+        // MIDI status byte
+        ////
         case IDLE:
             if ( (data & MIDI_COMMAND_MASK) == MIDI_NOTE_ON )
                 state.midi = NOTE_ON;
@@ -71,6 +74,10 @@ ISR(USART_RX_vect)
                 state.midi = PROGRAM_CHANGE;
             break;
 
+
+        ////
+        // MIDI data byte 0
+        ////
         case NOTE_ON:
             switch(data) {
                 case CMD_PEDAL_MODE:
@@ -101,9 +108,11 @@ ISR(USART_RX_vect)
             state.midi = IDLE;
             break;
 
+
         case PROGRAM_CHANGE:
             state.midi = IDLE;
             break;
+
 
         case CONTROL_CHANGE:
             switch(data) {
@@ -123,6 +132,10 @@ ISR(USART_RX_vect)
             }
             break;
 
+
+        ////
+        // MIDI data byte 1
+        ////
         case SET_WAH:
             applyWah(data);
             state.midi = IDLE;
@@ -134,6 +147,10 @@ ISR(USART_RX_vect)
             state.midi = IDLE;
             break;
 
+
+        ////
+        // unimplemented
+        ////
         default:
             state.midi = IDLE;
             break;

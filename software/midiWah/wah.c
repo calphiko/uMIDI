@@ -76,22 +76,25 @@ ISR(TIMER0_OVF_vect) {
     if (++prescaler > state.speed) {
         switch (state.waveform) {
             case WAVE_SAW_DOWN:
-                // increment, rotate and apply wah value
+                // increment, rotate and apply inverted counter value as wah
                 counter++;
                 counter %= MIDI_MAX_VALUE + 1;
                 applyWah(MIDI_MAX_VALUE - counter);
                 break;
 
             case WAVE_SAW_UP:
-                // increment, rotate and apply wah value
+                // increment, rotate and apply counter value as wah
                 counter++;
                 counter %= MIDI_MAX_VALUE + 1;
                 applyWah(counter);
                 break;
 
             case WAVE_SQUARE:
+                // increment and rotate counter value
                 counter++;
                 counter %= MIDI_MAX_VALUE + 1;
+
+                // apply quantized counter as wah
                 if (counter >= MIDI_MAX_VALUE/2)
                     applyWah(MIDI_MAX_VALUE);
                 else
@@ -101,11 +104,13 @@ ISR(TIMER0_OVF_vect) {
             case WAVE_TRIANGLE:
                 switch (direction) {
                     case DIRECTION_DOWN:
+                        // decrement counter; switch direction at min value
                         if (--counter <= 0)
                             direction = DIRECTION_UP;
                         break;
 
                     case DIRECTION_UP:
+                        // increment counter; switch direction at max value
                         if (++counter >= MIDI_MAX_VALUE)
                             direction = DIRECTION_DOWN;
                         break;
