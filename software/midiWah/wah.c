@@ -40,7 +40,7 @@ extern exec_state_t state;
 void applyWah( uint8_t wah )
 {
     // apply value
-    OCR1A = WAH_LED_SCALER * MIDI_MAX_VALUE - wah;
+    OCR1A = WAH_LED_SCALER * MIDI_MAX_VALUE - WAH_LED_OFFSET - wah;
 }
 
 

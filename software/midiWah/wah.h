@@ -38,8 +38,11 @@
 
 
 //---------------- code macros ----------------//
+// defines the low range for the wah effect
+#define     WAH_LED_OFFSET  4
+
 // the higher this value, the softer the wah effect
-#define     WAH_LED_SCALER  16
+#define     WAH_LED_SCALER  12
 
 
 //---------------- data types ----------------//
