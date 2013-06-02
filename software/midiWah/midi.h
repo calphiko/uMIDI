@@ -54,7 +54,7 @@
 #define     CMD_TAP_TEMPO               0x10
 
 // MIDI data byte 0 for CONTROL CHANGE commands
-#define     CTRL_WAH                    0x0b
+#define     CTRL_WAH                    0x01
 #define     CTRL_SPEED                  0x07
 
 
