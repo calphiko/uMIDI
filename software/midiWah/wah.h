@@ -58,7 +58,6 @@ typedef enum {
 void applyWah( uint8_t );
 void configureWahLedTimer( void );
 void configureWahModulationTimer( void );
-void modulateSaw( void );
 
 
 //---------------- EOF ----------------//

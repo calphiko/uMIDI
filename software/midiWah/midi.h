@@ -33,24 +33,25 @@
 
 //---------------- constants ----------------//
 // MIDI baudrate
-#define     BAUD                31250
+#define     BAUD                        31250
 
 // maximum MIDI value
-#define     MIDI_MAX_VALUE      127
+#define     MIDI_MAX_VALUE              127
 
 // MIDI status byte
-#define     MIDI_COMMAND_MASK   0xf0
-#define     MIDI_PROGRAM_CHANGE 0xc0
-#define     MIDI_CONTROL_CHANGE 0xb0
-#define     MIDI_NOTE_ON        0x90
+#define     MIDI_COMMAND_MASK           0xf0
+#define     MIDI_PROGRAM_CHANGE         0xc0
+#define     MIDI_CONTROL_CHANGE         0xb0
+#define     MIDI_NOTE_ON                0x90
 
 // MIDI data byte 0 for NOTE ON commands
-#define     CMD_PEDAL_MODE      0x00
-#define     CMD_MODULATION_MODE 0x01
-#define     CMD_TAP_TEMPO       0x08
+#define     CMD_PEDAL_MODE              0x00
+#define     CMD_AUTO_MODE_SAW_UP        0x01
+#define     CMD_AUTO_MODE_SAW_DOWN      0x02
+#define     CMD_TAP_TEMPO               0x10
 
 // MIDI data byte 0 for CONTROL CHANGE commands
-#define     CTRL_WAH            0x0b
+#define     CTRL_WAH                    0x0b
 
 
 //---------------- data types ----------------//

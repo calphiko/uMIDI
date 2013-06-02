@@ -24,8 +24,6 @@
 
 #include "midiWah.h"
 
-#include <util/atomic.h>
-
 
 ////////////////////////////////////////////////////////////////
 //                     V A R I A B L E S                      //
@@ -65,13 +63,6 @@ void configureWahModulationTimer( void ) {
     TIMSK0 |= _BV(TOIE0);
 }
 
-void modulateSaw() {
-    int value = 0;
-    value++;
-    value %= 128;
-    applyWah(value);
-}
-
 
 
 ////////////////////////////////////////////////////////////////
@@ -79,18 +70,26 @@ void modulateSaw() {
 ////////////////////////////////////////////////////////////////
 
 ISR(TIMER0_OVF_vect) {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        static uint8_t prescaler = 0;
-        if (++prescaler > 8) {
-            switch (state.waveform) {
-                case WAVE_SAW_UP:
-                    modulateSaw();
-                    break;
+    static uint8_t prescaler = 0;
+    static uint8_t wah = 0;
+    if (++prescaler > 8) {
+        switch (state.waveform) {
+            case WAVE_SAW_DOWN:
+                // increment, rotate and apply wah value
+                wah++;
+                wah %= MIDI_MAX_VALUE + 1;
+                applyWah(MIDI_MAX_VALUE - wah);
+                break;
 
-                default:
-                    break;
-            }
-            prescaler = 0;
+            case WAVE_SAW_UP:
+                // increment, rotate and apply wah value
+                wah++;
+                wah %= MIDI_MAX_VALUE + 1;
+                applyWah(wah);
+                break;
+
+            default:
+                break;
         }
     }
 }
