@@ -100,6 +100,11 @@ ISR(USART_RX_vect)
                     state.waveform = WAVE_SQUARE;
                     break;
 
+                case CMD_AUTO_MODE_STAIRS:
+                    state.receive = false;
+                    state.waveform = WAVE_STAIRS;
+                    break;
+
                 case CMD_AUTO_MODE_TRIANGLE:
                     state.receive = false;
                     state.waveform = WAVE_TRIANGLE;

@@ -39,10 +39,13 @@
 
 //---------------- code macros ----------------//
 // defines the low range for the wah effect
-#define     WAH_LED_OFFSET  4
+#define     WAH_LED_OFFSET                  4
 
 // the higher this value, the softer the wah effect
-#define     WAH_LED_SCALER  12
+#define     WAH_LED_SCALER                  12
+
+// the number of levels in the stair wave
+#define     STAIR_WAVE_QUANTIZATION         (MIDI_MAX_VALUE / 5)
 
 
 //---------------- data types ----------------//
@@ -58,7 +61,8 @@ typedef enum {
 	WAVE_TRIANGLE,
 	WAVE_SAW_UP,
 	WAVE_SAW_DOWN,
-	WAVE_SQUARE
+	WAVE_SQUARE,
+	WAVE_STAIRS
 } wave_t;
 
 

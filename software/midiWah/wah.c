@@ -101,6 +101,32 @@ ISR(TIMER0_OVF_vect) {
                     applyWah(0);
                 break;
 
+            case WAVE_STAIRS:
+                switch (direction) {
+                    case DIRECTION_DOWN:
+                        // decrement counter; switch direction at min value
+                        if (--counter <= 0) {
+                            direction = DIRECTION_UP;
+                            counter = STAIR_WAVE_QUANTIZATION;
+                        }
+                        break;
+
+                    case DIRECTION_UP:
+                        // increment counter; switch direction at max value
+                        if (++counter >= MIDI_MAX_VALUE) {
+                            direction = DIRECTION_DOWN;
+                            counter = MIDI_MAX_VALUE - STAIR_WAVE_QUANTIZATION;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+                // quantize and apply counter as wah
+                applyWah((counter / STAIR_WAVE_QUANTIZATION) * STAIR_WAVE_QUANTIZATION);
+                break;
+
             case WAVE_TRIANGLE:
                 switch (direction) {
                     case DIRECTION_DOWN:
