@@ -1,8 +1,13 @@
-# target
-BackupFiles
-*.T3000OPEN
-
-# files generated during build
+# Files generated during gcc build
+*.bin
+*.elf
 *.hex
+*.lst
 *.o
 *.s
+
+# Doxygen output
+software/doc/html
+
+# PCB plots
+hardware/plots
